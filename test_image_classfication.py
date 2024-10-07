@@ -5,9 +5,6 @@ from typing import Optional
 from PIL import Image
 from openai import OpenAI
 
-# Insert custom classes to test
-classes = ['pitted_surface', 'inclusion', 'crazing', 'unclear']
-
 class Config:
     def __init__(self, api_key: str, image_dir: str):
         self.api_key = api_key
@@ -40,7 +37,7 @@ class ImageClassification:
             print(f"Error converting image to base64: {e}")
             return ""
 
-    def predict(self, INSTRUCTION_PROMPT: str, base64_image: str) -> str:
+    def predict(self, INSTRUCTION_PROMPT: str, model: str, base64_image: str) -> str:
         payload = [
             {
                 "role": "user",
@@ -61,7 +58,7 @@ class ImageClassification:
 
         try:
             response = self.client.chat.completions.create(
-                model="gpt-4o",
+                model=model,
                 messages=payload,
                 max_tokens=300,
             )
@@ -73,22 +70,14 @@ class ImageClassification:
             print(f"Error during API prediction: {e}")
             return "Prediction failed"
 
-    def classify_single_image(self, image_path: str):
-
-        instruction_prompt = (
-            "You are an inspection assistant for a manufacturing plant. "
-            "Analyze the provided image of steel surfaces and classify it based on the kind of defect. "
-            f"There are four classes: {classes}. "
-            "You must always return only one option from that list."
-            "If you are not sure, choose 'unclear'."
-        )
+    def classify_single_image(self, image_path: str, classes, instruction_prompt, model):
 
         # Load and classify a single image
         image = self.load_image(image_path)
         if image:
             base64_img = self.image_to_base64(image)
             if base64_img:
-                result = self.predict(instruction_prompt, base64_img)
+                result = self.predict(instruction_prompt, model, base64_img)
                 print(f"Classification result for {image_path}: {result}")
             else:
                 print("Failed to convert image to base64.")
@@ -99,8 +88,22 @@ if __name__ == "__main__":
     
     api_key = '{Insert API key here}'
     config = Config(api_key=api_key, image_dir="images")
+    model = 'gpt-4o' # Insert custom fine-tuned model id
+
+    # Insert custom classes to test
+    classes = ['pitted_surface', 'inclusion', 'crazing', 'unclear']
+
+    # Change prompt according to use-case
+    instruction_prompt = (
+            "You are an inspection assistant for a manufacturing plant. "
+            "Analyze the provided image of steel surfaces and classify it based on the kind of defect. "
+            f"There are four classes: {classes}. "
+            "You must always return only one option from that list."
+            "If you are not sure, choose 'unclear'."
+        )
+    
     classifier = ImageClassification(config)
 
     # Specify the single image path to classify
     single_image_path = '/path/to/image.jpg'
-    classifier.classify_single_image(single_image_path)
+    classifier.classify_single_image(single_image_path, classes, instruction_prompt, model)
