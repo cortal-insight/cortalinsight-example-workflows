@@ -4,6 +4,10 @@
 
 This repo provides you with easy-to-follow scripts and workflows for performing image classification using GPT-4o, to handle vision-related tasks that are domain specific like defect detection, manufacturing visual inspection, quality control and more.
 
+To view more information, please have a look at the blog:
+Fine-Tuning GPT-4o for Image Classification: [click here](https://open.substack.com/pub/cortalinsight/p/fine-tune-gpt-4o-vision-models-for?r=36v0p6&utm_campaign=post&utm_medium=web)
+This blog provides detailed insights and step-by-step instructions for using the scripts in this repository to fine-tune GPT-4o for image classification tasks.
+
 🧠 Steps to fine-tune GPT-4o on your custom dataset.
 - Prepare your image classification dataset for GPT-4o fine-tuning
 - Upload datasets (large or small) using the OpenAI API for fine-tuning
