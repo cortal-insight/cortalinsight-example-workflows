@@ -11,9 +11,11 @@ This repository provides a suite of open-source components designed to simplify 
 
 🛠 Installation
 
+  ```bash
   git clone https://github.com/cortal-insight/cortalinsight-example-workflows.git
   cd cortalinsight-example-workflows/{project}
   pip install -r requirements.txt
+  ```
 
 🚀 Quick Tour 
 
@@ -28,9 +30,11 @@ Leverage the power of GPT-4o for fine-tuning image classification tasks specific
 🔗 Advanced Capabilities
 For more powerful and advanced capabilities, including real-time processing and enhanced model performance, explore our [platform’s premium offerings](https://cortalinsight.com/). 
 
-Learn more
-[Company Website](https://cortalinsight.com/) Product and company info
+🌐 Learn More
+
+[Company Website](https://cortalinsight.com/)
 [Company Blog](https://www.cortalinsight.com/blog) 
+
 
 For custom development or specific requirements, feel free to [contact us](https://tally.so/r/w4KpeO)!
 
